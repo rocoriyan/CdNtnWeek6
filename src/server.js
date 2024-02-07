@@ -1,17 +1,35 @@
 const express = require("express"); //es5. import is es6
-const { request } = require("http");
+const mongoose = require("mongoose");
 
 const app = express();
-
-// HTTP Verbs - GET, POST, PUT, DELETE
-
-//const response = await fetch("https://google.com"); //sends get request
 
 const fakeArr = [];
 
 app.use(express.json());
 
-// HTTP Verb GET
+const connection = async () => {
+  await mongoose.connect();
+  console.log("DB connection is working");
+}
+
+connection();
+
+const bookSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  author: {
+    type: String,
+  },
+  genre :{
+    type: String,
+  }
+})
+
+const Book = mongoose.model("Book", bookSchema);
+
 app.get("/books", (request, response) => {
 });
 
