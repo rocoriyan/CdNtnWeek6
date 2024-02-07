@@ -51,9 +51,10 @@ app.put("/books", async(request, response) => {
   //const book = await Book.findOneAndUpdate(request.name, request.author);
 });
 
-app.delete("/books", async(request, response) => {
+app.delete("/books/deleteBook", async(request, response) => {
   //await Book.deleteOne({});
   const book = await Book.deleteOne({ title: request.body.title });
+  response.send({ message: "success deleted book", book: book })
 });
 
 app.listen(5001, () => {
