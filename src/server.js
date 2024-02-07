@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express"); //es5. import is es6
 const mongoose = require("mongoose");
 
@@ -8,7 +9,7 @@ const fakeArr = [];
 app.use(express.json());
 
 const connection = async () => {
-  await mongoose.connect();
+  await mongoose.connect(process.env.MONGO_URI);
   console.log("DB connection is working");
 }
 
@@ -23,7 +24,7 @@ const bookSchema = new mongoose.Schema({
   author: {
     type: String,
   },
-  genre :{
+  genre: {
     type: String,
   }
 })
