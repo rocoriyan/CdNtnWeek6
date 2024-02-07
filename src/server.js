@@ -31,19 +31,29 @@ const bookSchema = new mongoose.Schema({
 
 const Book = mongoose.model("Book", bookSchema);
 
-app.get("/books", (request, response) => {
+app.get("/books/getAllBooks", async(request, response) => {
+  const books = await Book.find({}); //await means wait to finish before going to next thing
+  response.send({ message: "success got all books", books: books });
 });
 
-app.get("/books/getfirstbook", (request, response) => {
+app.post("/books/addBook", async(request, response) => {
+  const book = await Book.create({
+    title: request.body.title, //string = object.object.key's value
+    author: request.body.author,
+    genre: request.body.genre,
+  });
+
+  response.send({ message: "success book created", book: book })
 });
 
-app.post("/books", (request, response) => {
+app.put("/books", async(request, response) => {
+  //await Book.findOneAndUpdate(request.name, request.author);
+  //const book = await Book.findOneAndUpdate(request.name, request.author);
 });
 
-app.put("/books", (request, response) => {
-});
-
-app.delete("/books", (request, response) => {
+app.delete("/books", async(request, response) => {
+  //await Book.deleteOne({});
+  const book = await Book.deleteOne({ title: request.body.title });
 });
 
 app.listen(5001, () => {
