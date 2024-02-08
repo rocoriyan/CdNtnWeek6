@@ -46,14 +46,13 @@ app.post("/books/addBook", async(request, response) => {
   response.send({ message: "success book created", book: book })
 });
 
-app.put("/books", async(request, response) => {
-  //await Book.findOneAndUpdate(request.name, request.author);
-  //const book = await Book.findOneAndUpdate(request.name, request.author);
+app.put("/books/updateBook", async(request, response) => {
+  await Book.findOneAndUpdate({ title: request.body.title }, { author: request.body.author }); //find book where title = the title in the request body & replace its author with the author in the request body
+  response.send({ message: "success updated author" })
 });
 
 app.delete("/books/deleteBook", async(request, response) => {
-  //await Book.deleteOne({});
-  const book = await Book.deleteOne({ title: request.body.title });
+  const book = await Book.deleteOne({ title: request.body.title }); //delete book where title matches request body title
   response.send({ message: "success deleted book", book: book })
 });
 
